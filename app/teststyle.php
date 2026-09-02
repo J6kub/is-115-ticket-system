@@ -1,13 +1,11 @@
 <html>
     <head>
         <meta charset='utf-8'>
-        <link rel="stylesheet" href="../general-style.css">
-        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="general-style.css">
     </head>
-    <header><title>Admin Dash</title><h1>Ticketto System</h1></header>
+    <header><title>Rawr</title><h1>Ticketto System</h1></header>
     <body>
-        <?php require "../includes/nav.php"; ?>
-
+        <nav><button>Nav klik</button></nav>
         <main>
             <section><h2>First section</h2></section>
             <section>
@@ -25,9 +23,8 @@
                 <button>Clicky button</button>
             </aside>
         </main>
-        
+        <footer><span>Feets</span></footer>
     </body>
-        <?php require "../includes/footer.php"; ?>
 
 
 </html>

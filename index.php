@@ -1,5 +1,3 @@
 <html>
-	<head>
-		<h1>Testink</h1>
-	</head>
+<?php require "app/includes/nav.php"; ?>
 </html>
