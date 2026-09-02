@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
-    <title>Document</title>
-</head>
-<body>
-    <header>
-        <h1>Testink</h1>
-    </header>
-    <div class="login-container">
+    <head>
+        <meta charset='utf-8'>
+        <link rel="stylesheet" href="../general-style.css">
+        
+    </head>
+    <header><title>Admin Dash</title><h1>Ticketto System</h1></header>
+    <body>
+    <?php require "../includes/nav.php"; ?>
+    <main>
+
+    <section>
         <h1>Logg inn</h1>
-        <form>
-            <label for="username">Brukernavn:</label>
-            <input type="text" id="username" name="username" required><br><br>
-            <label for="password">Passord:</label>  
-            <input type="password" id="password" name="password" required><br><br>
-            <button type="submit">Logg inn</button>
+        <form method="POST" action="login.php">
+            <input required name="email" type="text" placeholder="Email"></input>
+            <input required name="password" type="password" placeholder="Password"></input>
+            <button type="submit">GO!</button>
         </form>
-    </div>
+    </section>
+</main>
+
 </body>
+<?php require "../includes/footer.php"; ?>
+
 </html>
