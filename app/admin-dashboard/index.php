@@ -7,7 +7,9 @@
     <header><title>Admin Dash</title><h1>Ticketto System</h1></header>
     <body>
         <?php require "../includes/nav.php"; ?>
-
+        <?php require "../includes/loginLock.php"; ?>
+        <?php LoginLock("admin"); ?>
+        
         <main>
             <section><h2>First section</h2></section>
             <section>
