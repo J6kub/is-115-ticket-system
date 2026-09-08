@@ -1,0 +1,42 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    background-color: #fff;
+    padding: 15px;
+}
+
+.navbar a {
+    text-decoration: none;
+    background-color: #3B82F6;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 3px;
+}
+
+.user-container {
+    max-width: 900px;
+    margin: 40px auto;
+}
+
+.user-card {
+    background-color: #fff;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.user-card h2 {
+    color: #1E3A5F;
+    margin-top: 0;
+}
+
+.user-card button {
+    padding: 10px 20px;
+    background-color: #3B82F6;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
