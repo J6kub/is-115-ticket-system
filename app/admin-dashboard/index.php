@@ -3,8 +3,9 @@
         <meta charset='utf-8'>
         <link rel="stylesheet" href="../general-style.css">
         <link rel="stylesheet" href="index.css">
+        <title>Admin Dash</title>
     </head>
-    <header><title>Admin Dash</title><h1>Ticketto System</h1></header>
+    <header><h1>Ticketto System</h1></header>
     <body>
         <?php require "../includes/nav.php"; ?>
         <?php require "../includes/loginLock.php"; ?>

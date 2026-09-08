@@ -1,9 +1,9 @@
 <nav>
-    <a href=/app/register-page><button>Register page</button></a>
-    <a href=/app/login-page><button>Login page</button></a>
-    <a href=/><button>Main page</button></a>
-    <a href=/app/admin-dashboard><button>Admin page</button></a>
-    <a href=/app/user-dashboard><button>User page</button></a>
+    <a href=../register-page><button>Register page</button></a>
+    <a href=../login-page><button>Login page</button></a>
+    <a href=../main-page><button>Main page</button></a>
+    <a href=../admin-dashboard><button>Admin page</button></a>
+    <a href=../user-dashboard><button>User page</button></a>
     <?php 
         session_start();
         if (isset($_SESSION["user"])) {
