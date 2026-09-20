@@ -18,32 +18,37 @@
     <main class="ticket-page">
 
         <h1>Tickets</h1>
+<section class="new-tickets">
+    <h2>Nye tickets</h2>
 
-        <section class="new-tickets">
-            <h2>Nye tickets</h2>
+    <a class="ticket-link" href="../ticket-view/index.php?id=101">
+        <div class="ticket">
+            <strong>#101</strong>
+            <p>Problem med innlogging</p>
+            <span class="status status-open">Åpen</span>
+        </div>
+    </a>
 
-            <div class="ticket">
-                <strong>#101</strong>
-                <p>Problem med innlogging</p>
-                <span>Status: Åpen</span>
-            </div>
+    <a class="ticket-link" href="../ticket-view/index.php?id=102">
+        <div class="ticket">
+            <strong>#102</strong>
+            <p>Får ikke lastet opp fil</p>
+            <span class="status status-progress">In progress</span>
+        </div>
+    </a>
+</section>
 
-            <div class="ticket">
-                <strong>#102</strong>
-                <p>Får ikke lastet opp fil</p>
-                <span>Status: Under behandling</span>
-            </div>
-        </section>
+<section class="old-tickets">
+    <h2>Tidligere tickets</h2>
 
-        <section class="old-tickets">
-            <h2>Tidligere tickets</h2>
-
-            <div class="ticket">
-                <strong>#98</strong>
-                <p>Glemt passord</p>
-                <span>Status: Løst</span>
-            </div>
-        </section>
+    <a class="ticket-link" href="../ticket-view/index.php?id=98">
+        <div class="ticket">
+            <strong>#98</strong>
+            <p>Glemt passord</p>
+            <span class="status status-closed">Lukket</span>
+        </div>
+    </a>
+</section>
 
         <aside class="new-ticket">
             <h2>Lag ny case</h2>
@@ -81,7 +86,7 @@
     </main>
 
     <footer>
-        Ticket System
+       <?php require "../includes/footer.php"; ?>
     </footer>
 
 </body>

@@ -63,3 +63,16 @@
         grid-row: auto;
     }
 }
+.ticket-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.ticket-link:hover .ticket {
+    background-color: var(--pink-light);
+}
+
+.ticket {
+    cursor: pointer;
+}
