@@ -4,44 +4,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" href="../general-style.css">
-        <link rel="stylesheet" href="index.css"> <title>Mine tickets</title>
+    <link rel="stylesheet" href="../general-style.css">
+    <link rel="stylesheet" href="index.css?v=<?= time() ?>">
+    <title>Tickets</title>
 </head>
 
 <body>
-  <?php require "../includes/nav.php"; ?>
-        <?php require "../includes/loginLock.php"; ?>
-        <?php LoginLock("user"); ?>
-    <main>
 
-        <section>
-            <h2>Mine tickets</h2>
+    <?php require "../includes/nav.php"; ?>
+    <?php require "../includes/loginLock.php"; ?>
+    <?php LoginLock("user"); ?>
 
-            <p>
-                <strong>#101</strong><br>
-                Problem med innlogging<br>
+    <main class="ticket-page">
+
+        <h1>Tickets</h1>
+
+        <section class="new-tickets">
+            <h2>Nye tickets</h2>
+
+            <div class="ticket">
+                <strong>#101</strong>
+                <p>Problem med innlogging</p>
                 <span>Status: Åpen</span>
-            </p>
+            </div>
 
-            <p>
-                <strong>#102</strong><br>
-                Får ikke lastet opp fil<br>
+            <div class="ticket">
+                <strong>#102</strong>
+                <p>Får ikke lastet opp fil</p>
                 <span>Status: Under behandling</span>
-            </p>
+            </div>
         </section>
 
-        <section>
-            <h2>Ferdige tickets</h2>
+        <section class="old-tickets">
+            <h2>Tidligere tickets</h2>
 
-            <p>
-                <strong>#98</strong><br>
-                Glemt passord<br>
+            <div class="ticket">
+                <strong>#98</strong>
+                <p>Glemt passord</p>
                 <span>Status: Løst</span>
-            </p>
+            </div>
         </section>
 
-        <aside>
-            <h2>Opprett ny ticket</h2>
+        <aside class="new-ticket">
+            <h2>Lag ny case</h2>
 
             <form action="" method="post">
 
@@ -59,14 +64,16 @@
                     <option value="other">Annet</option>
                 </select>
 
-                <input
-                    type="text"
+                <textarea
                     name="description"
                     placeholder="Beskriv problemet"
                     required
-                >
+                ></textarea>
 
-                <input type="submit" value="Opprett ticket">
+                <input
+                    type="submit"
+                    value="Opprett case"
+                >
 
             </form>
         </aside>
