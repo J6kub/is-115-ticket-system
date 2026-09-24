@@ -7,7 +7,7 @@
       <link rel="stylesheet" href="../general-style.css">
         <link rel="stylesheet" href="index.css"> <title>Mine tickets</title>
 </head>
-
+<?php require "../includes/header.php"; ?>
 <body>
   <?php require "../includes/nav.php"; ?>
         <?php require "../includes/loginLock.php"; ?>

@@ -7,9 +7,7 @@
         <title>Ticket View</title>
     </head>
 
-    <header>
-        <h1>Ticketto System</h1>
-    </header>
+    <?php require "../includes/header.php"; ?>
 
     <body>
         <?php require "../includes/nav.php"; ?>
@@ -83,7 +81,7 @@
                     <!-- Another user message -->
                     <div class="message message-left">
                         <div class="message-header">
-                            <span class="message-sender">John Doe</span>
+                            <span class="message-sender">Martin Martini Martinsen</span>
                             <span class="message-date">2026-09-17 20:31</span>
                         </div>
 

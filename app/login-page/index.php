@@ -6,7 +6,9 @@
         <link rel="stylesheet" href="../general-style.css">
         
     </head>
-    <header><title>Admin Dash</title><h1>Ticketto System</h1></header>
+
+    <?php require "../includes/header.php"; ?>
+    
     <body>
     <?php require "../includes/nav.php"; ?>
     <main>

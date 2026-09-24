@@ -7,9 +7,7 @@
         <title>Admin Dash</title>
     </head>
 
-    <header>
-        <h1>Ticketto System</h1>
-    </header>
+    <?php require "../includes/header.php"; ?>
 
     <body>
         <?php require "../includes/nav.php"; ?>
@@ -20,8 +18,9 @@
 
             <!-- Section 1 -->
             <section class="dashboard-section">
-                <h2>First section</h2>
-                <p>Some bullshit admin dashboard content goes here.</p>
+                <h2>Admin dashboard</h2>
+                <p>Welcome back, Joe Momorini </p>
+                <p>There are <strong>55</strong> tickets waiting for your response</p>
             </section>
 
             <!-- Section 2 -->
@@ -64,8 +63,8 @@
 
             <!-- Section 3 -->
             <section class="dashboard-section">
-                <h2>Third section</h2>
-                <p>More bullshit goes here.</p>
+                <h2>4s</h2>
+                <p>Tekst bare litt lenger nede</p>
             </section>
 
         </main>
