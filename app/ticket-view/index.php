@@ -9,11 +9,8 @@
     <title>Ticket View</title>
 </head>
 
-<<<<<<< HEAD
     <?php require "../includes/header.php"; ?>
-=======
 <body>
->>>>>>> a1399ebe32aed7498a72079799665b36e49c30e4
 
     <?php require "../includes/nav.php"; ?>
     <?php require "../includes/loginLock.php"; ?>
