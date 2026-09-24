@@ -1,91 +1,112 @@
-
-body main {
+body main.ticket-view {
     width: 90%;
     max-width: 1200px;
     margin: 30px auto;
 
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 2fr) minmax(220px, 0.8fr);
     gap: 25px;
 
     box-sizing: border-box;
 }
 
+.ticket-left {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 
-/* =========================================
-   TOP SECTIONS
-========================================= */
+    min-width: 0;
+}
 
 body main .ticket-section {
     width: 100%;
     max-width: none;
     min-width: 0;
 
-    box-sizing: border-box;
-
     padding: 25px;
 
-    background: #ffffff;
-
-    border: 1px solid #ddd;
-    border-radius: 10px;
-
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
 }
 
-
-/* =========================================
-   MESSAGES SECTION
-========================================= */
-
-body main .messages-section {
-    width: 100%;
-    max-width: none;
-
-    /*
-        Force this section to occupy both
-        grid columns.
-    */
-    grid-column: 1 / 3;
+.ticket-information {
+    min-height: 250px;
 }
-
-
-/* =========================================
-   HEADINGS
-========================================= */
-
-body main .ticket-section h2 {
-    margin: 0 0 20px 0;
-}
-
-
-/* =========================================
-   TICKET INFORMATION
-========================================= */
 
 .ticket-info {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+
+    margin-bottom: 25px;
 }
 
-.ticket-info p {
+.info-item span,
+.ticket-description span {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: var(--muted);
+
+    font-size: 0.9rem;
+}
+
+.info-item p {
     margin: 0;
-}
 
-
-/* =========================================
-   STATUS
-========================================= */
-
-.status-container {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.status-label {
     font-weight: bold;
+}
+
+.ticket-description {
+    padding-top: 20px;
+
+    border-top: 1px solid var(--border);
+}
+
+.ticket-description p {
+    margin: 8px 0 0;
+
+    line-height: 1.5;
+}
+
+body main .ticket-sidebar {
+    grid-column: 2;
+    grid-row: 1;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 100%;
+
+    align-self: stretch;
+}
+
+.sidebar-item {
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.sidebar-item:last-child {
+    padding-bottom: 0;
+    margin-bottom: 0;
+
+    border-bottom: none;
+}
+
+.sidebar-label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: var(--pink-dark);
+
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.sidebar-item p {
+    margin: 0;
 }
 
 .status {
@@ -93,7 +114,7 @@ body main .ticket-section h2 {
 
     padding: 6px 14px;
 
-    border-radius: 6px;
+    border-radius: 20px;
 
     font-size: 0.9rem;
     font-weight: bold;
@@ -104,10 +125,19 @@ body main .ticket-section h2 {
     color: #246b3a;
 }
 
+.status.progress {
+    background: #fff1c7;
+    color: #8a6200;
+}
 
-/* =========================================
-   MESSAGES
-========================================= */
+.status.closed {
+    background: #f9dddd;
+    color: #a52a2a;
+}
+
+.messages-section {
+    width: 100%;
+}
 
 .messages {
     display: flex;
@@ -117,37 +147,27 @@ body main .ticket-section h2 {
     width: 100%;
 }
 
-
-/* Individual message */
-
 .message {
-    width: 70%;
+    width: 80%;
     max-width: 800px;
 
     box-sizing: border-box;
 
     padding: 15px 18px;
 
+    border: 1px solid var(--border);
     border-radius: 12px;
-
-    border: 1px solid #ddd;
 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-
-/* Left / user message */
-
 .message-left {
     align-self: flex-start;
 
-    background: #f5f5f5;
+    background: #f8f8f8;
 
     border-bottom-left-radius: 3px;
 }
-
-
-/* Right / admin message */
 
 .message-right {
     align-self: flex-end;
@@ -156,11 +176,6 @@ body main .ticket-section h2 {
 
     border-bottom-right-radius: 3px;
 }
-
-
-/* =========================================
-   MESSAGE HEADER
-========================================= */
 
 .message-header {
     display: flex;
@@ -173,16 +188,10 @@ body main .ticket-section h2 {
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-
-/* Sender name */
-
 .message-sender {
     font-weight: bold;
     font-size: 0.95rem;
 }
-
-
-/* Date */
 
 .message-date {
     margin-left: 20px;
@@ -194,9 +203,6 @@ body main .ticket-section h2 {
     white-space: nowrap;
 }
 
-
-/* Message text */
-
 .message-body {
     line-height: 1.5;
 
@@ -204,35 +210,57 @@ body main .ticket-section h2 {
     overflow-wrap: break-word;
 }
 
+.comment-form {
+    margin-top: 25px;
+}
 
-/* =========================================
-   MOBILE
-========================================= */
+.comment-form textarea {
+    width: 100%;
+    min-height: 100px;
+
+    padding: 11px 13px;
+
+    font: inherit;
+    color: var(--text);
+
+    background: white;
+
+    border: 1px solid var(--border);
+    border-radius: 8px;
+
+    outline: none;
+
+    resize: vertical;
+}
+
+.comment-form textarea:focus {
+    border-color: var(--pink);
+
+    box-shadow: 0 0 0 3px rgba(232, 106, 168, 0.12);
+}
 
 @media (max-width: 700px) {
 
-    body main {
-        width: 95%;
+    body main.ticket-view {
+        width: calc(100% - 24px);
 
-        display: grid;
         grid-template-columns: 1fr;
     }
 
-
-    body main .ticket-section {
-        width: 100%;
-    }
-
-
-    body main .messages-section {
+    body main .ticket-sidebar {
         grid-column: 1;
+        grid-row: auto;
+
+        min-height: auto;
     }
 
+    .ticket-info {
+        grid-template-columns: 1fr;
+    }
 
     .message {
-        width: 90%;
+        width: 100%;
     }
-
 
     .message-header {
         align-items: flex-start;
@@ -241,37 +269,7 @@ body main .ticket-section h2 {
         gap: 4px;
     }
 
-
     .message-date {
         margin-left: 0;
     }
-}
-```
-
-### One thing I'd also check
-
-If `general-style.css` has something like:
-
-```css
-main {
-    display: flex;
-}
-
-section {
-    width: 50%;
-}
-```
-
-the above should beat it because we're using:
-
-```css
-body main { ... }
-body main .ticket-section { ... }
-```
-
-But if your general CSS uses `!important`, e.g.:
-
-```css
-section {
-    width: 50% !important;
 }
