@@ -1,0 +1,78 @@
+.ticket-page {
+    grid-template-columns: 1fr 1fr;
+}
+
+.ticket-page h1 {
+    grid-column: 1 / -1;
+    margin: 0;
+}
+
+.new-tickets {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.old-tickets {
+    grid-column: 1;
+    grid-row: 3;
+}
+
+.new-ticket {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+}
+
+.ticket {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.ticket:last-child {
+    border-bottom: none;
+}
+
+.ticket p {
+    margin: 8px 0;
+}
+
+.new-ticket textarea {
+    width: 100%;
+    min-height: 140px;
+    padding: 11px 13px;
+    font: inherit;
+    color: var(--text);
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    outline: none;
+    resize: vertical;
+}
+
+.new-ticket textarea:focus {
+    border-color: var(--pink);
+    box-shadow: 0 0 0 3px rgba(232, 106, 168, 0.12);
+}
+
+@media (max-width: 700px) {
+    .ticket-page h1,
+    .new-tickets,
+    .old-tickets,
+    .new-ticket {
+        grid-column: auto;
+        grid-row: auto;
+    }
+}
+.ticket-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.ticket-link:hover .ticket {
+    background-color: var(--pink-light);
+}
+
+.ticket {
+    cursor: pointer;
+}

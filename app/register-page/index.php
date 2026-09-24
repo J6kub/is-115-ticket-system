@@ -4,7 +4,7 @@
         <link rel="stylesheet" href="../general-style.css">
         <link rel="stylesheet" href="index.css">
     </head>
-    <header><title>Admin Dash</title><h1>Ticketto System</h1></header>
+    <?php require "../includes/header.php"; ?>
     <body>
         <?php require "../includes/nav.php"; ?>
         <main>
@@ -20,8 +20,9 @@
                     <input required name="password" type="password" placeholder="Password"></input>
                     <select required name="role">
                         <option value="" disabled selected>-- Select role --</option>
-                        <option value="User">User</option>
-                        <option value="Admin">Admin</option>
+                        <option value="1">User</option>
+                        <option value="3">Employee</option>
+                        <option value="2">Admin</option>
                     </select>
                     <input type="submit"></input>
                 </form>

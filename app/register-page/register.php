@@ -12,7 +12,7 @@ echo $_POST["role"] . "<br>";
 require "../includes/dbconn.php";
 
 $sql = "INSERT INTO user
-        (first_name, last_name, user_type, email, password_hash)
+        (first_name, last_name, user_type_id, email, password_hash)
         VALUES (
             '{$_POST["firstname"]}',
             '{$_POST["lastname"]}',
