@@ -1,4 +1,4 @@
-```php
+
 <?php
 
 class User {
@@ -22,6 +22,7 @@ class User {
         echo $this->first_name . "<br>";
     }
 }
+
 
 ?>
 ```

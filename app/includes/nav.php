@@ -5,7 +5,7 @@
     <a href=../admin-dashboard><button>Admin page</button></a>
     <a href=../user-dashboard><button>User page</button></a>
     <?php 
-        session_start();
+        
         if (isset($_SESSION["user"])) {
             foreach (get_object_vars($_SESSION["user"]) as $key => $value) {
                 echo "<span>" . $key . ": " . $value . "</span>";
