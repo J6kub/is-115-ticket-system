@@ -2,7 +2,8 @@
 require_once "../includes/classes/user.php";
 
 require_once "../includes/dbconn.php";
-
+// brooo du må starte session først!! 
+session_start();
 $user_id = $_SESSION["user"]->id;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {

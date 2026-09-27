@@ -8,13 +8,30 @@
     <link rel="stylesheet" href="index.css">
     <title>Ticket View</title>
 </head>
-
     <?php require "../includes/header.php"; ?>
 <body>
 
     <?php require "../includes/nav.php"; ?>
     <?php require "../includes/loginLock.php"; ?>
     <?php LoginLock("user"); ?>
+
+    <?php 
+        require "../includes/dbconn.php";
+
+
+        $result = $conn->query("SELECT * FROM case_overview where id=" . $_GET["id"]);
+
+        $case = $result->fetch_assoc();
+        //print_r($case);
+        $caseMessages = array();
+        $result = $conn->query("SELECT * FROM case_message_overview where case_id=" . $_GET["id"]);
+        while ($casemsg = $result->fetch_assoc()) {
+            //echo "<br>";
+            //print_r($casemsg);
+            array_push($caseMessages,$casemsg);
+        }
+        
+    ?>
 
     <main class="ticket-view">
 
@@ -25,45 +42,45 @@
                 <h2>Ticket Information</h2>
 
                 <div class="ticket-info">
-
+                    <?php
+                    echo '
                     <div class="info-item">
                         <span>Ticket ID</span>
-                        <p>#1001</p>
+                        <p>' . $case["id"] .'</p>
                     </div>
 
                     <div class="info-item">
                         <span>Created</span>
-                        <p>2026-09-17 18:42</p>
+                        <p>' . $case["created_at"] .'</p>
                     </div>
 
                     <div class="info-item">
                         <span>Header</span>
-                        <p>Something is broken</p>
+                        <p>' . $case["case_name"] .'</p>
                     </div>
 
                     <div class="info-item">
                         <span>Last update</span>
-                        <p>2026-09-17 20:31</p>
+                        <p>' . $case["updated_at"] .'</p>
                     </div>
-
+                
                 </div>
 
                 <div class="ticket-description">
                     <span>Description</span>
 
                     <p>
-                        Something is broken and I can't figure out what is causing the problem.
-                        It stopped working earlier today.
+                        ' . $case["case_desc"] .'
                     </p>
-                </div>
-
+                </div>'
+                ?>
             </section>
 
             <section class="ticket-section messages-section">
 
                 <h2>Activity</h2>
 
-                <div class="messages">
+                <div class="messages" id='msgs'>
 
                     <div class="message message-left">
 
@@ -107,14 +124,15 @@
 
                 </div>
 
-                <form class="comment-form">
+                <form action=none class="comment-form">
 
                     <textarea
+                        id="sendMsgTxt"
                         name="comment"
                         placeholder="Write a comment..."
                     ></textarea>
 
-                    <button type="submit">Send comment</button>
+                    <button type='button' id="sendButton">Send comment</button>
 
                 </form>
 
@@ -129,7 +147,7 @@
                 <span class="sidebar-label">Status</span>
 
                 <span class="status open">
-                    Open
+                    <?php echo $case["Status"] ?>
                 </span>
 
             </div>
@@ -138,7 +156,7 @@
 
                 <span class="sidebar-label">Requested by</span>
 
-                <p>Martin Martini Martinsen</p>
+                <p><?php echo $case["FullName"] ?></p>
 
             </div>
 
@@ -157,5 +175,25 @@
     <?php require "../includes/footer.php"; ?>
 
 </body>
+<script src="./index.js"></script>
+<script>
+    let msgElement = document.getElementById("msgs");
+    const meows = <?php echo json_encode($caseMessages); ?>;
+    const case_info = <?php echo json_encode($case); ?>;
+    msgElement.innerHTML = htmlizeMsgs(meows,case_info);
+
+
+    const txtArea = document.getElementById("sendMsgTxt")
+    const sendButton = document.getElementById("sendButton")
+
+    sendButton.addEventListener("click", async () => {
+        const res = await sendMsg(txtArea.value, Number(case_info["id"]))
+        if (res.success = true) {
+            location.href = location.href;
+        } else {
+            alert("Problem sending message");
+        }
+        })
+</script>
 
 </html>
