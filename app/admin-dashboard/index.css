@@ -4,6 +4,9 @@ main { width: 90%; max-width: 1200px; margin: 30px auto; display: flex; flex-dir
     align-items: center;
     gap: 20px;
 }
+table tbody tr {
+    cursor:pointer;
+}
 
 .ticket-search {
     display: flex;
