@@ -30,6 +30,14 @@
             //print_r($casemsg);
             array_push($caseMessages,$casemsg);
         }
+        $caseMsgAttachments = array();
+        
+        $result = $conn->query("SELECT message_id,hash_id,filename,file_size FROM case_message_overview_attachments where case_id=" . $_GET["id"]);
+        while ($casemsg = $result->fetch_assoc()) {
+            //echo "<br>";
+            //print_r($casemsg);
+            array_push($caseMsgAttachments,$casemsg);
+        }
         
     ?>
 
@@ -131,6 +139,20 @@
                         name="comment"
                         placeholder="Write a comment..."
                     ></textarea>
+                    <div class="attachment-section">
+
+                        <label for="attachmentInput" class="attachment-button">
+                            📎 Add attachments
+                        </label>
+
+                        <input
+                            type="file"
+                            id="attachmentInput"
+                            multiple
+                            hidden
+                        >
+
+                    <div id="attachmentList" class="attachment-list"></div>
 
                     <button type='button' id="sendButton">Send comment</button>
 
@@ -176,24 +198,67 @@
 
 </body>
 <script src="./index.js"></script>
+<script src="./attachments.js"></script>
 <script>
     let msgElement = document.getElementById("msgs");
     const meows = <?php echo json_encode($caseMessages); ?>;
     const case_info = <?php echo json_encode($case); ?>;
-    msgElement.innerHTML = htmlizeMsgs(meows,case_info);
+    const meows_attach = <?php echo json_encode($caseMsgAttachments); ?>;
+    let meows_grouped = {};
+    meows_attach.forEach((el) => {
+        if (meows_grouped[el.message_id] == undefined) {
+            meows_grouped[el.message_id] = [el]
+        } else {
+            meows_grouped[el.message_id].push(el);
+        }
+    })
+
+    msgElement.innerHTML = htmlizeMsgs(meows,meows_grouped, case_info);
 
 
     const txtArea = document.getElementById("sendMsgTxt")
     const sendButton = document.getElementById("sendButton")
 
     sendButton.addEventListener("click", async () => {
-        const res = await sendMsg(txtArea.value, Number(case_info["id"]))
-        if (res.success = true) {
-            location.href = location.href;
-        } else {
+
+        const res = await sendMsg(
+            txtArea.value,
+            Number(case_info["id"])
+        );
+
+        if (res.success !== true) {
             alert("Problem sending message");
+            return;
         }
-        })
+
+        const messageId = res.data.message_id;
+
+        for (const file of selectedAttachments) {
+
+            const formData = new FormData();
+
+            formData.append("message_id", messageId);
+            formData.append("attachment", file);
+
+            const uploadRes = await fetch("UploadAttachment.php", {
+                method: "POST",
+                body: formData
+            });
+
+            const uploadResult = await uploadRes.json();
+
+            if (!uploadResult.success) {
+                console.error(
+                    "Failed to upload:",
+                    file.name
+                );
+            }
+        }
+        setTimeout(() => {
+            location.href = location.href;
+        }, 200);
+        
+    });
 </script>
 
 </html>

@@ -1,15 +1,25 @@
 <nav>
-    <a href=../register-page><button>Register page</button></a>
-    <a href=../login-page><button>Login page</button></a>
+    
     <a href=../main-page><button>Main page</button></a>
-    <a href=../admin-dashboard><button>Admin page</button></a>
-    <a href=../user-dashboard><button>User page</button></a>
+    
+    
     <?php 
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
+        
+        if (!isset($_SESSION["user"])) {
+            echo "<a href=../register-page><button>Register page</button></a>";
+            echo "<a href=../login-page><button>Login page</button></a>";
+        } else {
+            
+            if (get_object_vars($_SESSION["user"])["role"] == 1) {
+                echo "<a href=../user-dashboard><button>User page</button></a>";
+            } else {
+                echo "<a href=../admin-dashboard><button>Admin page</button></a>";
+            }
 
-        if (isset($_SESSION["user"])) {
+
             echo '<div class="user-hover">';
             echo '<div class="user-icon">👤</div>';
 
@@ -25,13 +35,18 @@
                 }
                 
             }
+            echo "<a href='../includes/logout.php'><button>Logout</button></a>";
 
             echo '</div>';
             echo '</div>';
         }
     ?>
 </nav>
-
+<script>
+    function nav_logout() {
+        
+    }
+</script>
 <style>
     nav {
         display: flex;

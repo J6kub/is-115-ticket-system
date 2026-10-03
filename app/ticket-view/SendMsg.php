@@ -55,8 +55,13 @@ $stmt = $conn->prepare("
 $stmt->bind_param("iis", $case_id, $user["id"], $msg);
 $stmt->execute();
 
+$message_id = $conn->insert_id;
+
 echo json_encode([
     "success" => true,
-    "message" => "Message sent"
+    "message" => "Message sent",
+    "data" => [
+        "message_id" => $message_id
+    ]
 ]);
 ?>
