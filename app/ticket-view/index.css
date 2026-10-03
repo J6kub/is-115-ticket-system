@@ -277,7 +277,7 @@ body main .ticket-sidebar {
 .attachment-card {
     display: flex;
     align-items: center;
-
+    
     width: 280px;
     padding: 10px 12px;
 
@@ -327,6 +327,12 @@ body main .ticket-sidebar {
     flex: 1;
     min-width: 0;
 }
+.attachment-button {
+    padding:0.3em;
+    border-radius: 1em;
+    border:1px solid pink;
+    
+}
 
 .attachment-name {
     color: #663653;
@@ -374,4 +380,7 @@ body main .ticket-sidebar {
 .attachment-download:hover {
     background: #f8bddb;
     transform: scale(1.08);
+}
+.attachment-section {
+    margin:0.5em;
 }

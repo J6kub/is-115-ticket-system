@@ -153,7 +153,7 @@
                         >
 
                     <div id="attachmentList" class="attachment-list"></div>
-
+                    </div>
                     <button type='button' id="sendButton">Send comment</button>
 
                 </form>
