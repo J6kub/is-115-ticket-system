@@ -25,7 +25,17 @@
 
             <!-- Section 2 -->
             <section class="dashboard-section">
-                <h2>Tickets</h2>
+                <h2 id="ticketto-touretto">
+                    <span>Tickets</span>
+
+                    <div class="ticket-search">
+                        <input type="text" id="searchy" onkeyup="MayTheSearchBarCallThis(this.value)" placeholder="Search tickets...">
+                        <input value="null" id="searchy_filter" style="display:none">
+                        <button type="button" onclick="setActiveFilter('case_name',this);" class="search-filter active">Case Name</button>
+                        <button type="button" onclick="setActiveFilter('case_desc',this);" class="search-filter">Case Description</button>
+                        <button type="button" onclick="setActiveFilter('FullName',this);" class="search-filter">Submitted by</button>
+                    </div>
+                </h2>
 
                 <table class="ticket-table">
                     <thead>
@@ -38,24 +48,9 @@
                         </tr>
                     </thead>
 
-                    <tbody>
+                    <tbody id='teeBodi'>
                         
-                        <tr onclick='location.href="../ticket-view"'>
-                            <td>#1001</td>
-                            <td>Example ticket</td>
-                            <td>John Doe</td>
-                            <td>2026-09-17 20:31</td>
-                            <td><span class="status open">Open</span></td>
-                        </tr>
-                        </a>
-                        
-                        <tr onclick='location.href="../ticket-view"'>
-                            <td>#1002</td>
-                            <td>Something is broken</td>
-                            <td>Martin Martini Martinsen</td>
-                            <td>2026-09-17 19:12</td>
-                            <td><span class="status pending">Pending</span></td>
-                        </tr>
+                       
                         
                     </tbody>
                 </table>
@@ -70,6 +65,13 @@
         </main>
 
     </body>
-
+    <script src="./index.js">
+       
+        </script>
+        <script>
+             window.onload = async () => {
+            await MayTheSearchBarCallThis("");
+        }
+            </script>
     <?php require "../includes/footer.php"; ?>
 </html>
