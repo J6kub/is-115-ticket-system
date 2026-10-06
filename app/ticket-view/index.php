@@ -13,7 +13,7 @@
 
     <?php require "../includes/nav.php"; ?>
     <?php require "../includes/loginLock.php"; ?>
-    <?php LoginLock("user"); ?>
+    <?php LoginLock(); ?>
 
     <?php 
         require "../includes/dbconn.php";
