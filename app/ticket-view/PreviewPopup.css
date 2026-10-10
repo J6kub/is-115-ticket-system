@@ -1,0 +1,156 @@
+
+.ppu-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 650px;
+    height: 480px;
+    min-width: 280px;
+    min-height: 200px;
+    max-width: 95vw;
+    max-height: 95vh;
+
+    resize: both;
+    overflow: hidden;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+
+    background: #fff7fb;
+    color: #713b57;
+    border: 2px solid #f5c2d9;
+    border-radius: 18px;
+    box-shadow: 0 16px 50px rgba(190, 86, 137, 0.25);
+
+    font-family: "Segoe UI", Arial, sans-serif;
+    z-index: 10000;
+
+    /* Allow resizing without affecting other popups */
+    isolation: isolate;
+}
+
+/* Draggable header */
+.ppu-header {
+    position: relative;
+    flex: 0 0 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 55px;
+    box-sizing: border-box;
+
+    background: linear-gradient(135deg, #ffe4f0, #fbd1e5);
+    border-bottom: 1px solid #f2bfd6;
+
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+}
+
+/* Centered filename */
+.ppu-filename {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    color: #8f4169;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+    pointer-events: none;
+}
+
+/* Close button */
+.ppu-killer {
+    all: unset;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 34px;
+    height: 34px;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #fff7fb;
+    color: #c05283;
+    border: 1px solid #f0b6d0;
+    border-radius: 10px;
+
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+
+    transition: background 0.2s, color 0.2s;
+}
+
+.ppu-killer:hover {
+    all: unset;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 34px;
+    height: 34px;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #fff7fb;
+    color: #c05283;
+    border: 1px solid #f0b6d0;
+    border-radius: 10px;
+
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+
+    transition: background 0.2s, color 0.2s;
+    background: #e96b9e;
+    color: white;
+    border-color: #e96b9e;
+    margin:0;
+}
+
+/* Flexible image area */
+.ppu-content {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+    background: #fff9fc;
+}
+
+.ppu-image {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+
+    object-fit: contain;
+    padding: 12px;
+    box-sizing: border-box;
+
+    pointer-events: none;
+    user-select: none;
+}
