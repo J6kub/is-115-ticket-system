@@ -43,7 +43,7 @@ function drawAttachment(attach) {
             </div>
 
             <div class="attachment-meta">
-                FILE_TYPE · ${Number(attach["file_size"])/1000 } kb
+                ${extension} · ${Number(attach["file_size"])/1000 } kb
             </div>
         </div>
         ${meowchi_preview}
@@ -64,7 +64,7 @@ function drawMessage(msg,side="left", attachments = null) {
     return `<div class="message message-${side}">
         <div class="message-header">
             <span class="message-sender">${msg["FullName"]}</span>
-            <span class="message-date">${msg["created_at"]}}</span>
+            <span class="message-date">${msg["created_at"]}</span>
         </div>
 
         <div class="message-body">

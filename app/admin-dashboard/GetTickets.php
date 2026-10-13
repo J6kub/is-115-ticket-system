@@ -95,6 +95,8 @@ $query = "SELECT * FROM case_overview";
 
 if (!empty($conditions)) {
     $query .= " WHERE " . implode(" OR ", $conditions);
+} else {
+    $query .= " ORDER BY updated_at DESC";
 }
 
 $query .= " LIMIT ? OFFSET ?";

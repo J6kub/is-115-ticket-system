@@ -91,45 +91,7 @@
 
                 <div class="messages" id='msgs'>
 
-                    <div class="message message-left">
-
-                        <div class="message-header">
-                            <span class="message-sender">Martin Martini Martinsen</span>
-                            <span class="message-date">2026-09-17 18:42</span>
-                        </div>
-
-                        <div class="message-body">
-                            Something is broken and I can't figure out what is causing the problem.
-                            It stopped working earlier today.
-                        </div>
-
-                    </div>
-
-                    <div class="message message-right">
-
-                        <div class="message-header">
-                            <span class="message-sender">Admin</span>
-                            <span class="message-date">2026-09-17 19:15</span>
-                        </div>
-
-                        <div class="message-body">
-                            Thanks for reporting this. I'll take a look at the issue and get back to you.
-                        </div>
-
-                    </div>
-
-                    <div class="message message-left">
-
-                        <div class="message-header">
-                            <span class="message-sender">Martin Martini Martinsen</span>
-                            <span class="message-date">2026-09-17 20:31</span>
-                        </div>
-
-                        <div class="message-body">
-                            Sounds good, thanks!
-                        </div>
-
-                    </div>
+                    
 
                 </div>
 
