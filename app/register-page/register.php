@@ -28,4 +28,11 @@ if (mysqli_query($conn, $sql)) {
 }
 
 ?>
+<h1 id='h1'></h1>
+<script src="../reusables/redirect.js"></script>
+<script>
+    let h1 = document.getElementById("h1"); 
+    ToMainTimeout(4, h1);
+
+</script>
 </html>

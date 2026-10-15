@@ -2,7 +2,8 @@
 require_once "../includes/classes/user.php";
 
 require_once "../includes/dbconn.php";
-
+session_start();
+$user_id = $_SESSION["user"]->id;
 
 
 ?>

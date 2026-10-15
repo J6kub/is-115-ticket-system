@@ -1,6 +1,17 @@
 <?php
-$LoginLockActive = false;
+$LoginLockActive = true;
 function LoginLock($userType = "none") {
+    
+    switch (strtolower($userType)) {
+        case "user":
+            $userType = 1;
+        case "admin":
+            $userType = 2;
+        case "employee":
+            $userType = 3;
+        
+    }
+
     global $LoginLockActive;
     if (!$LoginLockActive) {
         return;
@@ -11,13 +22,13 @@ function LoginLock($userType = "none") {
     }
 
     if (!isset($_SESSION["user"])) {
-        header("Location: /app/login-page");
+        header("Location: ./login-page");
         exit;
     }
 
     if ($userType !== "none" && strtolower(get_object_vars($_SESSION["user"])["role"]) !== strtolower($userType)) {
         
-        header("Location: /app/login-page");
+        header("Location: ../login-page");
         exit;
     }
 }

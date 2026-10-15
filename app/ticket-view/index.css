@@ -206,7 +206,7 @@ body main .ticket-sidebar {
 .message-body {
     line-height: 1.5;
 
-    white-space: pre-wrap;
+    padding:1.5em;
     overflow-wrap: break-word;
 }
 
@@ -272,4 +272,115 @@ body main .ticket-sidebar {
     .message-date {
         margin-left: 0;
     }
+}
+
+.attachment-card {
+    display: flex;
+    align-items: center;
+    
+    width: 280px;
+    padding: 10px 12px;
+
+    background: #fff8fc;
+    border: 2px solid #f3d3e5;
+    border-radius: 16px;
+
+    box-shadow: 0 3px 8px rgba(180, 100, 150, 0.08);
+
+    transition: transform 0.15s ease,
+                box-shadow 0.15s ease,
+                background 0.15s ease;
+
+    font-family: Arial, sans-serif;
+}
+
+.attachment-card:hover {
+    transform: translateY(-2px);
+    background: #fff1f8;
+
+    box-shadow: 0 5px 12px rgba(180, 100, 150, 0.15);
+}
+
+
+/* Cute paperclip bubble */
+
+.attachment-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    margin-right: 10px;
+
+    background: #ffe1f0;
+    border-radius: 12px;
+
+    font-size: 19px;
+}
+
+
+/* Filename + metadata */
+
+.attachment-details {
+    flex: 1;
+    min-width: 0;
+}
+.attachment-button {
+    padding:0.3em;
+    border-radius: 1em;
+    border:1px solid pink;
+    
+}
+
+.attachment-name {
+    color: #663653;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.attachment-meta {
+    margin-top: 3px;
+
+    color: #b0809e;
+    font-size: 11px;
+}
+
+
+/* Download button */
+
+.attachment-download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+
+    margin-left: 8px;
+
+    background: #ffd9eb;
+    border-radius: 10px;
+
+    color: #8d4b70;
+    text-decoration: none;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    transition: 0.15s ease;
+}
+
+.attachment-download:hover {
+    background: #f8bddb;
+    transform: scale(1.08);
+}
+.attachment-section {
+    margin:0.5em;
 }
