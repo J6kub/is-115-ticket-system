@@ -68,7 +68,7 @@ function drawMessage(msg,side="left", attachments = null) {
         </div>
 
         <div class="message-body">
-            ${msg["message"]}
+            ${msg["message"].replaceAll("<","&lt;")}
         </div>
         <div id="meow_${msg["id"]}">
             ${attachmentsHTML}

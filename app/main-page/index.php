@@ -27,6 +27,28 @@
                 to make submitting and managing support requests easy.
             </p>
         </section>
+        <section>
+            <p>
+                Things to do:
+                <ul>
+                    <li>Endring av status</li>
+
+                    <li>Min profil</li>
+
+                    <li>E-postvarslinger</li>
+
+                    <li>Security (ca. 50 % ferdig)</li>
+
+                    <li>Søter Gooser</li>
+
+
+
+                    <li>Admin-side: Kan endre hvem som behandler hvilken sak</li>
+
+                    <li>Prioritering</li>
+                </ul>
+            </p>
+        </section>
 
         <aside>
             <h1>Welcome to Support Goose</h1>
