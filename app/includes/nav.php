@@ -21,13 +21,20 @@
 
 
             echo '<div class="user-hover">';
-            echo '<div class="user-icon">👤</div>';
+            $user_info = get_object_vars($_SESSION["user"]);
+            echo '<a class="user-icon" href="/is-115-ticket-system/app/profile/index.php" aria-label="Min profil">';
+            if (!empty($user_info["profile_image"])) {
+                echo '<img src="/is-115-ticket-system/app/profile/picture.php" alt="Profilbildet ditt">';
+            } else {
+                echo '👤';
+            }
+            echo '</a>';
 
             echo '<div class="user-popup">';
             echo '<strong>User information</strong>';
 
             foreach (get_object_vars($_SESSION["user"]) as $key => $value) {
-                if ($key != "__PHP_Incomplete_Class_Name") {
+                if ($key != "__PHP_Incomplete_Class_Name" && $key != "profile_image") {
                     echo '<div class="user-row">';
                     echo '<span>' . htmlspecialchars($key) . '</span>';
                     echo '<b>' . htmlspecialchars($value) . '</b>';
@@ -70,6 +77,7 @@
 
 /* Cute pink user button */
 .user-icon {
+    text-decoration: none;
     width: 40px;
     height: 40px;
 
@@ -95,6 +103,13 @@
     transform: scale(1.12) rotate(-5deg);
     background: #ff9dcc;
     box-shadow: 0 5px 18px rgba(255, 105, 180, 0.5);
+}
+
+.user-icon img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 /* Pink bubble */
