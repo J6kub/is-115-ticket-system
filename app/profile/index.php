@@ -7,6 +7,13 @@ if (!isset($_SESSION["user"])) {
 }
 
 $user = $_SESSION["user"];
+$roles = [
+    1 => "Bruker",
+    2 => "Administrator",
+    3 => "Ansatt"
+];
+
+$roleName = $roles[$user->role] ?? "Ukjent rolle";
 ?>
 <!DOCTYPE html>
 <html lang="no">
@@ -33,22 +40,22 @@ $user = $_SESSION["user"];
 
                 <div class="info-field">
                     <label>Fornavn</label>
-                    <p><?php echo $user->first_name; ?></p>
+                    <p><?= htmlspecialchars($user->first_name, ENT_QUOTES, "UTF-8") ?></p>
                 </div>
 
                 <div class="info-field">
                     <label>Etternavn</label>
-                    <p><?php echo $user->last_name; ?></p>
+                    <p><?= htmlspecialchars($user->last_name, ENT_QUOTES, "UTF-8") ?></p>
                 </div>
 
                 <div class="info-field">
                     <label>E-postadresse</label>
-                    <p><?php echo $user->email; ?></p>
+                    <p><?= htmlspecialchars($user->email, ENT_QUOTES, "UTF-8") ?></p>
                 </div>
 
                 <div class="info-field">
                     <label>Brukerrolle</label>
-                    <p><?php echo $user->role; ?></p>
+                    <p><?= htmlspecialchars($roleName, ENT_QUOTES, "UTF-8") ?></p>
                 </div>
             </div>
 
