@@ -219,6 +219,9 @@ CREATE TABLE `user` (
   `user_type_id` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
+  `profile_image` varchar(255) DEFAULT NULL,
+  `profile_image_data` mediumblob DEFAULT NULL,
+  `profile_image_type` varchar(30) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
