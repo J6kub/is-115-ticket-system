@@ -1,3 +1,7 @@
+<?php
+require "../includes/loginLock.php";
+LoginLock();
+?>
 <!DOCTYPE html>
 <html lang="no">
 
@@ -13,8 +17,6 @@
 <body>
 
     <?php require "../includes/nav.php"; ?>
-    <?php require "../includes/loginLock.php"; ?>
-    <?php LoginLock(); ?>
 
     <?php 
         require "../includes/dbconn.php";

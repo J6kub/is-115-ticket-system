@@ -1,14 +1,18 @@
 <?php
+require_once __DIR__ . "/classes/user.php";
 $LoginLockActive = true;
 function LoginLock($userType = "none") {
     
     switch (strtolower($userType)) {
         case "user":
             $userType = 1;
+            break;
         case "admin":
             $userType = 2;
+            break;
         case "employee":
             $userType = 3;
+            break;
         
     }
 
@@ -22,11 +26,11 @@ function LoginLock($userType = "none") {
     }
 
     if (!isset($_SESSION["user"])) {
-        header("Location: ./login-page");
+        header("Location: ../login-page/index.php");
         exit;
     }
 
-    if ($userType !== "none" && strtolower(get_object_vars($_SESSION["user"])["role"]) !== strtolower($userType)) {
+    if ($userType !== "none" && $_SESSION["user"]->role != $userType) {
         
         header("Location: ../login-page");
         exit;

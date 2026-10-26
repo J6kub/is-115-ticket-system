@@ -1,0 +1,103 @@
+main {
+    max-width: 700px;
+    display: block;
+}
+
+.profile-container h1 {
+    margin: 0 0 24px;
+    color: var(--pink-dark);
+    text-align: center;
+}
+
+.profile-picture {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 24px;
+    margin-bottom: 28px;
+    background: var(--pink-light);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.profile-picture img,
+.profile-placeholder {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border: 3px solid var(--pink);
+    border-radius: 50%;
+    background: white;
+}
+
+.profile-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+}
+
+.profile-picture form {
+    width: 100%;
+    max-width: 350px;
+}
+
+.profile-picture small {
+    color: var(--muted);
+}
+
+.info-field {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.info-field label {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.info-field p {
+    margin: 8px 0 0;
+    overflow-wrap: anywhere;
+}
+
+.profile-actions {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.profile-actions a {
+    color: var(--pink-dark);
+}
+
+.profile-message,
+.profile-error {
+    padding: 12px;
+    border-radius: 8px;
+    background: var(--pink-light);
+}
+
+.profile-error {
+    color: #a32338;
+}
+
+.profile-container button:focus-visible {
+    outline: 2px solid var(--pink-dark);
+    outline-offset: 3px;
+}
+
+@media (max-width: 700px) {
+    .profile-picture {
+        padding: 20px 12px;
+    }
+
+    .profile-actions button {
+        width: 100%;
+    }
+}
