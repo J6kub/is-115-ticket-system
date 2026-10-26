@@ -273,6 +273,18 @@ if ($email !== "" && $password !== "") {
                 transform: translateY(8px);
             }
         }
+        .user-pill {
+            overflow: hidden;
+            border-radius: 50%; /* Keeps the pill/image circular */
+        }
+
+        .user-pill img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: inherit;
+        }
     </style>
 </head>
 
@@ -303,7 +315,7 @@ if ($email !== "" && $password !== "") {
             </p>
 
             <div class="user-pill">
-                ✉ <?= htmlspecialchars($email) ?>
+                <img src="/is-115-ticket-system/app/profile/picture.php" alt="Profilbildet ditt">
             </div>
 
             <div class="redirect-box">
