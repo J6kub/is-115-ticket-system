@@ -1,4 +1,8 @@
 
+<?php
+require "../includes/loginLock.php";
+LoginLock("admin");
+?>
 <html>
     <head>
         <meta charset="utf-8">
@@ -11,8 +15,6 @@
 
     <body>
         <?php require "../includes/nav.php"; ?>
-        <?php require "../includes/loginLock.php"; ?>
-        <?php LoginLock("admin"); ?>
 
         <main>
 

@@ -1,3 +1,7 @@
+<?php
+require "../includes/loginLock.php";
+LoginLock();
+?>
 <!DOCTYPE html>
 <html lang="no">
 
@@ -6,14 +10,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../general-style.css">
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="PreviewPopup.css">
     <title>Ticket View</title>
 </head>
     <?php require "../includes/header.php"; ?>
 <body>
 
     <?php require "../includes/nav.php"; ?>
-    <?php require "../includes/loginLock.php"; ?>
-    <?php LoginLock(); ?>
 
     <?php 
         require "../includes/dbconn.php";
@@ -199,6 +202,7 @@
 </body>
 <script src="./index.js"></script>
 <script src="./attachments.js"></script>
+<script src="./PreviewPopup.js"></script>
 <script>
     let msgElement = document.getElementById("msgs");
     const meows = <?php echo json_encode($caseMessages); ?>;
