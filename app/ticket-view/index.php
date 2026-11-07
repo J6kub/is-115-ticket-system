@@ -158,7 +158,12 @@ LoginLock();
                     <div id="attachmentList" class="attachment-list"></div>
                     </div>
                     <button type='button' id="sendButton">Send comment</button>
-
+                    <div style="display:inline-block;">Case status: <select id='statusInput' name="status" style="width:auto">
+                        <?php 
+                        require "../includes/getStatuses.php";
+                            PrintSelectStatuses();
+                        ?>
+                    </select></div>
                 </form>
 
             </section>
@@ -227,7 +232,8 @@ LoginLock();
 
         const res = await sendMsg(
             txtArea.value,
-            Number(case_info["id"])
+            Number(case_info["id"]),
+            document.getElementById("statusInput").value
         );
 
         if (res.success !== true) {

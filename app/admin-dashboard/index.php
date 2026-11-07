@@ -1,7 +1,7 @@
 
 <?php
 require "../includes/loginLock.php";
-LoginLock("admin");
+LoginLock(["admin","employee"]);
 ?>
 <html>
     <head>

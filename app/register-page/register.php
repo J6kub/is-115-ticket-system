@@ -1,6 +1,6 @@
 <html>
 <?php
-
+// Den gjør rå passord om til Hash, som gjør det vanskelig for hackere å finne passord til folk!
 $pwdHash = hash("sha256", $_POST["password"]);
 
 echo $_POST["firstname"] . "<br>";

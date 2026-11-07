@@ -1,22 +1,25 @@
+
 <?php
 require_once __DIR__ . "/classes/user.php";
+
 $LoginLockActive = true;
-function LoginLock($userType = "none") {
-    
+
+function UserTypeTransl8($userType) {
     switch (strtolower($userType)) {
         case "user":
-            $userType = 1;
-            break;
+            return 1;
         case "admin":
-            $userType = 2;
-            break;
+            return 2;
         case "employee":
-            $userType = 3;
-            break;
-        
+            return 3;
+        default:
+            return $userType;
     }
+}
 
+function LoginLock($userType = "none") {
     global $LoginLockActive;
+
     if (!$LoginLockActive) {
         return;
     }
@@ -30,11 +33,23 @@ function LoginLock($userType = "none") {
         exit;
     }
 
-    if ($userType !== "none" && $_SESSION["user"]->role != $userType) {
-        
+    // Normalize to array
+    if (!is_array($userType)) {
+        $userType = [$userType];
+    }
+
+    // Translate all allowed roles
+    $allowedRoles = array_map('UserTypeTransl8', $userType);
+
+    // "none" means any authenticated user
+    if (in_array("none", $userType, true)) {
+        return;
+    }
+
+    // Check if user's role is allowed
+    if (!in_array($_SESSION["user"]->role, $allowedRoles)) {
         header("Location: ../login-page");
         exit;
     }
 }
-
 ?>

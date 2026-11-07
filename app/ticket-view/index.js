@@ -77,7 +77,7 @@ function drawMessage(msg,side="left", attachments = null) {
     </div>`
 }
 
-async function sendMsg(msg, case_id) {
+async function sendMsg(msg, case_id,status) {
     const response = await fetch("SendMsg.php", {
         method: "POST",
         headers: {
@@ -85,7 +85,8 @@ async function sendMsg(msg, case_id) {
         },
         body: JSON.stringify({
             msg: msg,
-            case_id: case_id
+            case_id: case_id,
+            status: status
         })
     });
 
