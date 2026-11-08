@@ -16,7 +16,7 @@ function UserTypeTransl8($userType) {
             return $userType;
     }
 }
-
+// Only this user type has access to site
 function LoginLock($userType = "none") {
     global $LoginLockActive;
 
@@ -49,6 +49,29 @@ function LoginLock($userType = "none") {
     // Check if user's role is allowed
     if (!in_array($_SESSION["user"]->role, $allowedRoles)) {
         header("Location: ../login-page");
+        exit;
+    }
+}
+// Only UserId's in the array have access to the page
+function UserLock($GoodIds, $AllowEmployees=false, $AllowAdmins=false) {
+    if (!is_array($GoodIds)) {
+        $GoodIds = [$GoodIds];
+    }
+    $employee = false;
+    $admin = false;
+    if ($_SESSION["user"]->id == 3) {
+        $employee = true;
+    } else if ($_SESSION["user"]->id == 2) {
+        $admin = true;
+        $employee = true;
+    }
+
+    if ($AllowEmployees == true && $employee) {
+
+    } else if ($AllowAdmins == true && $admin) {
+        
+    } else if (!in_array($_SESSION["user"]->id, $GoodIds)) {
+        echo "No access";
         exit;
     }
 }
