@@ -3,6 +3,7 @@ require_once "../includes/classes/user.php";
 
 require_once "../includes/dbconn.php";
 session_start();
+//henter id-en til brukeren som er logget inn
 $user_id = $_SESSION["user"]->id;
 
 
@@ -31,6 +32,7 @@ $user_id = $_SESSION["user"]->id;
         <h2>Nye tickets</h2>
 
         <?php
+        // henter tickets som er åpne og under behandling, som er laget av brukeren selv. De nyeste ticketene vises først.
         $sql = "SELECT * FROM cases
                 WHERE user_id = '$user_id'
                 AND status_id != 3
@@ -38,6 +40,7 @@ $user_id = $_SESSION["user"]->id;
 
         $result = mysqli_query($conn, $sql);
 
+        // går gjennom tickete som er i databasen og viser dem på siden som er brukeren sine egne tickets.
         while ($row = mysqli_fetch_assoc($result)) {
         ?>
             <a class="ticket-link" href="../ticket-view/index.php?id=<?= $row["id"] ?>">
@@ -56,6 +59,7 @@ $user_id = $_SESSION["user"]->id;
         <h2>Tidligere tickets</h2>
 
         <?php
+        // henter ut tickets som er lukket med status id = 3(lukket), ticketene som er hentet blir hentet ut fra brukerens id som er logget inn.
         $sql = "SELECT * FROM cases
                 WHERE user_id = '$user_id'
                 AND status_id = 3
@@ -63,6 +67,7 @@ $user_id = $_SESSION["user"]->id;
 
         $result = mysqli_query($conn, $sql);
 
+            // while løkken går igjennom ticketsene som er i databasen, og viser lukkede tickets på siden til brukeren. den blir hentet ut fra brukerens id.
         while ($row = mysqli_fetch_assoc($result)) {
         ?>
             <a class="ticket-link" href="../ticket-view/index.php?id=<?= $row["id"] ?>">
@@ -76,7 +81,7 @@ $user_id = $_SESSION["user"]->id;
         }
         ?>
     </section>
-
+    
     <aside class="new-ticket">
         <h2>Lag ny case</h2>
 

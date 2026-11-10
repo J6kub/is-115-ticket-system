@@ -1,14 +1,16 @@
 <?php   
 require_once "../includes/classes/user.php";
 session_start();
+//sjekker om brukeren er logget inn, hvis ikke blir brukeren sendt til login siden.
 if (!isset($_SESSION["user"])) {
     header("Location: ../login-page/index.php");
     exit();
 }
-
+//henter ut brukerens id som er logget inn, og henter ut informasjonen til brukeren fra databasen.
 require_once "../includes/dbconn.php";
 mysqli_report(MYSQLI_REPORT_OFF);
 
+// Funksjon for å hente verdien fra skjemaet, og fjerner mellomrom før og etter teksten
 function getFormField($field) {
     if (isset($_POST[$field]) && is_string($_POST[$field])) {
         return trim($_POST[$field]);
@@ -16,8 +18,11 @@ function getFormField($field) {
     return "";
 }
 
+// henter informasjon om brukeren som er logget inn fra databasen.
 $userId = $_SESSION["user"]->id;
 $sql = "SELECT ID, First_name, Last_name, user_type_id, email, (profile_image_data IS NOT NULL) AS has_profile_image FROM user WHERE ID = ?";
+
+//kjører en spørring for å hente informasjon om brukeren, og lagrer informasjonen i userdata.
 $query = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($query, "i", $userId);
 mysqli_stmt_execute($query);
