@@ -6,7 +6,7 @@ if (!isset($_SESSION["user"])) {
     header("Location: ../login-page/index.php");
     exit();
 }
-//henter ut brukerens id som er logget inn, og henter ut informasjonen til brukeren fra databasen.
+//kobler til databasen og henter ut informasjonen til brukeren fra databasen.
 require_once "../includes/dbconn.php";
 mysqli_report(MYSQLI_REPORT_OFF);
 
@@ -35,14 +35,16 @@ if (!$userData) {
     header("Location: ../login-page/index.php");
     exit();
 }
-
+//oppretter et nytt user objekt som skal inneholde informasjonen om brukeren, og lagrer informasjonen hentet fra spørringen.
 $user = new User($userData);
 $_SESSION["user"] = $user;
 
+//sjekker om brukeren har trykket på edit knappen for profil. variabler for feilemelding og bekreftelse er laget.
 $editing = isset($_GET["edit"]);
 $error = "";
 $message = "";
 
+//sjekker om det er en feilmelding eller bekreftelse fra session, og fjerner dem etterpå.
 if (isset($_SESSION["profile_error"])) {
     $error = $_SESSION["profile_error"];
     unset($_SESSION["profile_error"]);
@@ -56,11 +58,12 @@ if (isset($_SESSION["profile_message"])) {
 if (!isset($_SESSION["profile_token"])) {
     $_SESSION["profile_token"] = bin2hex(random_bytes(32));
 }
-
+//henter informasjon om brukeren og lagrer dem i variabler man kan hente til profilvisningen.
 $firstName = $user->first_name;
 $lastName = $user->last_name;
 $email = $user->email;
 
+//når brukeren trykker på lagre endringer knappen, hentes de nye oppslusningene fra skjemaet, dette kontrolleres og lagres i databasen.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $editing = true;
     $firstName = getFormField("first_name");
@@ -68,6 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = getFormField("email");
     $token = getFormField("token");
 
+    //sjekker om skjemaet er gyldig, og om alle felt er fylt og har riktig format.
     if (!hash_equals($_SESSION["profile_token"], $token)) {
         $error = "Invalid form. Reload the page and try again.";
     } elseif ($firstName == "" || $lastName == "" || $email == "") {
@@ -88,11 +92,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             mysqli_stmt_close($query);
         }
-
+//sender feilmelding hvis det ikke klarer å lagre informasjonen
         if (!$saved && $error == "") {
             $error = "Could not save your profile. Try again.";
         }
-
+//hvs den lagrer informasjonen så oppdaterer den informasjonen på profilen og sender bekreftelse til brukeren.
         if ($saved) {
             $user->first_name = $firstName;
             $user->last_name = $lastName;
@@ -105,6 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+//henter ut informasjon om rollen til brukeren og viser det på siden.
 $roleName = "Unknown role";
 if ($user->role == 1) {
     $roleName = "User";
@@ -140,6 +145,7 @@ if ($user->role == 1) {
                 <p class="profile-error" role="alert"><?= htmlspecialchars($error, ENT_QUOTES, "UTF-8") ?></p>
             <?php endif; ?>
 
+           <?php //  viser profilbildet til brukeren, hvis den ikke har noe lagret vises et standard ikon.?>
             <div class="profile-picture">
                 <?php if ($user->profile_image): ?>
                     <img src="picture.php" alt="Your profile picture">
