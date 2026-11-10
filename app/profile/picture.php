@@ -1,10 +1,19 @@
 <?php
 require_once "../includes/classes/user.php";
 session_start();
+function passDefaultImg() {
+    $fn = "../images/user.png";
+    $fp = fopen($fn, "rb");
+    header("Content-Type: image/png");
+    header("Content-Length: " . filesize($fn));
 
+    // dump the picture and stop the script
+    fpassthru($fp);
+    exit;
+}
 if (!isset($_SESSION["user"])) {
-    http_response_code(401);
-    exit();
+    passDefaultImg();
+
 }
 
 $bruker_id = $_SESSION["user"]->id;
@@ -19,8 +28,7 @@ $bilde = mysqli_fetch_assoc($resultat);
 mysqli_stmt_close($sporring);
 
 if (empty($bilde["profile_image_data"])) {
-    http_response_code(404);
-    exit();
+    passDefaultImg();
 }
 
 header("Content-Type: " . $bilde["profile_image_type"]);

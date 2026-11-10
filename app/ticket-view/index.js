@@ -16,7 +16,22 @@ function htmlizeMsgs(msgs, meows_attach, caseinfo) {
     return html;
 
 }
+function getExtension(fn) {
+    return fn.slice(fn.lastIndexOf(".")).toLowerCase().replace(".","");
+}
+
 function drawAttachment(attach) {
+    let meowchi_preview = "";
+    let extension = getExtension(attach.filename);
+    const PreviewableExtensions = ["jpg","png","gif","webp","jpeg"]
+
+    
+
+    if (PreviewableExtensions.includes(extension)) {
+        meowchi_preview = `<a style='cursor: pointer;' onclick='poppy = new PreviewPopup("${attach["hash_id"]}",${JSON.stringify(attach)})' class="attachment-download" title="Download">
+            🔎
+        </a>`;
+    }
     return `<div class="attachment-card">
         <div class="attachment-icon">
             📎
@@ -31,12 +46,14 @@ function drawAttachment(attach) {
                 FILE_TYPE · ${Number(attach["file_size"])/1000 } kb
             </div>
         </div>
-
+        ${meowchi_preview}
         <a href="./Download.php?element=${attach["hash_id"]}" class="attachment-download" title="Download">
-            ↓
+            ⬇️
         </a>
     </div>`
 }
+
+
 
 function drawMessage(msg,side="left", attachments = null) {
     attachmentsHTML = "";
