@@ -1,4 +1,7 @@
 <?php
+require "../includes/loginLock.php";
+LoginLock("user");
+
 require_once "../includes/classes/user.php";
 
 require_once "../includes/dbconn.php";
@@ -6,6 +9,16 @@ session_start();
 // Get the logged-in user ID.
 $user_id = $_SESSION["user"]->id;
 
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $case_name = $_POST["title"];
+    $case_desc = $_POST["description"];
+
+    $sql = "INSERT INTO cases (user_id, priority_id, case_desc, case_name, status_id)
+            VALUES ('$user_id', 1, '$case_desc', '$case_name', 1)";
+
+    mysqli_query($conn, $sql);
+}
+?>
 
 ?>
 <!DOCTYPE html>

@@ -3,19 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Paź 03, 2026 at 03:07 AM
+-- Generation Time: Lis 07, 2026 at 05:19 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `ticketsystem`
@@ -53,11 +47,6 @@ CREATE TABLE `cases` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `cases`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -81,14 +70,32 @@ CREATE TABLE `case_messages` (
   `case_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `message` text NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `status_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `case_messages`
+-- Wyzwalacze `case_messages`
 --
-
-
+DELIMITER $$
+CREATE TRIGGER `after_case_message_insert` AFTER INSERT ON `case_messages` FOR EACH ROW BEGIN
+    UPDATE cases
+    SET updated_at = CURRENT_TIMESTAMP
+    WHERE id = NEW.case_id;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_case_status_after_message` AFTER INSERT ON `case_messages` FOR EACH ROW BEGIN
+    IF NEW.status_id IS NOT NULL THEN
+        UPDATE cases
+        SET status_id = NEW.status_id,
+            updated_at = CURRENT_TIMESTAMP()
+        WHERE id = NEW.case_id;
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -161,11 +168,6 @@ CREATE TABLE `message_attachments` (
   `hash_id` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `message_attachments`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -176,15 +178,6 @@ CREATE TABLE `priorities` (
   `id` smallint(6) NOT NULL,
   `name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `priorities`
---
-
-INSERT INTO `priorities` (`id`, `name`) VALUES
-(3, 'High'),
-(1, 'Low'),
-(2, 'Medium');
 
 -- --------------------------------------------------------
 
@@ -202,9 +195,13 @@ CREATE TABLE `statuses` (
 --
 
 INSERT INTO `statuses` (`id`, `name`) VALUES
+(12, ''),
+(6, 'Big Problem'),
 (3, 'Closed'),
 (2, 'In progress'),
-(1, 'Open');
+(1, 'Open'),
+(5, 'Quarantine'),
+(10, 'Unknown');
 
 -- --------------------------------------------------------
 
@@ -219,23 +216,11 @@ CREATE TABLE `user` (
   `user_type_id` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `profile_image` varchar(255) DEFAULT NULL,
   `profile_image_data` mediumblob DEFAULT NULL,
-  `profile_image_type` varchar(30) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `profile_image_type` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`ID`, `First_name`, `Last_name`, `user_type_id`, `email`, `password_hash`, `created_at`) VALUES
-(1, 'fuck', 'fuck', 1, 'fuck', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '2026-09-24 11:23:10'),
-(2, '123', '123', 3, '123', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '2026-09-26 12:19:59'),
-(3, 'okdas', 'woqkd', 3, '2132', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '2026-09-26 12:28:47'),
-(4, 'Martin', 'Martini', 2, '1234', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', '2026-09-27 11:05:10'),
-(5, 'Admin', 'Adminssfi', 2, 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '2026-09-27 11:34:25'),
-(6, 'user', 'Userify', 1, 'user', '04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb', '2026-09-27 12:10:56');
 
 -- --------------------------------------------------------
 
@@ -282,7 +267,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `case_overview`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `case_overview`  AS SELECT `c`.`id` AS `id`, `c`.`user_id` AS `user_id`, concat(`u`.`First_name`,' ',`u`.`Last_name`) AS `FullName`, `c`.`case_name` AS `case_name`, `c`.`case_desc` AS `case_desc`, `c`.`priority_id` AS `priority_id`, `c`.`status_id` AS `status_id`, `s`.`name` AS `Status`, `c`.`created_at` AS `created_at`, `c`.`updated_at` AS `updated_at` FROM ((`cases` `c` join `user` `u` on(`c`.`user_id` = `u`.`ID`)) join `statuses` `s` on(`c`.`status_id` = `s`.`id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `case_overview`  AS SELECT `c`.`id` AS `id`, `c`.`user_id` AS `user_id`, concat(`u`.`First_name`,' ',`u`.`Last_name`) AS `FullName`, `c`.`case_name` AS `case_name`, `c`.`case_desc` AS `case_desc`, `c`.`priority_id` AS `priority_id`, `c`.`status_id` AS `status_id`, `s`.`name` AS `Status`, `c`.`created_at` AS `created_at`, `c`.`updated_at` AS `updated_at` FROM ((`cases` `c` join `user` `u` on(`c`.`user_id` = `u`.`ID`)) join `statuses` `s` on(`c`.`status_id` = `s`.`id`)) ORDER BY `c`.`updated_at` DESC ;
 
 --
 -- Indeksy dla zrzutów tabel
@@ -370,31 +355,31 @@ ALTER TABLE `attachments`
 -- AUTO_INCREMENT for table `cases`
 --
 ALTER TABLE `cases`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `case_messages`
 --
 ALTER TABLE `case_messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `message_attachments`
 --
 ALTER TABLE `message_attachments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `statuses`
 --
 ALTER TABLE `statuses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user_types`
@@ -447,7 +432,3 @@ ALTER TABLE `message_attachments`
 ALTER TABLE `user`
   ADD CONSTRAINT `fk_user_user_type` FOREIGN KEY (`user_type_id`) REFERENCES `user_types` (`id`);
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
