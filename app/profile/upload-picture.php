@@ -7,8 +7,8 @@ if (!isset($_SESSION["user"])) {
     exit();
 }
 
-function visBildefeil($melding) {
-    $_SESSION["profile_error"] = $melding;
+function showImageError($message) {
+    $_SESSION["profile_error"] = $message;
     header("Location: index.php");
     exit();
 }
@@ -23,54 +23,54 @@ if (isset($_POST["token"]) && is_string($_POST["token"])) {
     $token = $_POST["token"];
 }
 if (!isset($_SESSION["profile_token"]) || !hash_equals($_SESSION["profile_token"], $token)) {
-    visBildefeil("Last profilsiden på nytt og prøv igjen.");
+    showImageError("Reload your profile page and try again.");
 }
 
 if (!isset($_FILES["profile_image"]) || is_array($_FILES["profile_image"]["error"])) {
-    visBildefeil("Velg et bilde først.");
+    showImageError("Choose an image first.");
 }
 
-$fil = $_FILES["profile_image"];
-if ($fil["error"] != UPLOAD_ERR_OK) {
-    visBildefeil("Bildet kunne ikke lastes opp. Maks størrelse er 2 MB.");
+$file = $_FILES["profile_image"];
+if ($file["error"] != UPLOAD_ERR_OK) {
+    showImageError("Could not upload the image. The maximum size is 2 MB.");
 }
 
-if ($fil["size"] > 2 * 1024 * 1024) {
-    visBildefeil("Bildet er for stort. Maks størrelse er 2 MB.");
+if ($file["size"] > 2 * 1024 * 1024) {
+    showImageError("The image is too large. The maximum size is 2 MB.");
 }
 
-$bildeinfo = @getimagesize($fil["tmp_name"]);
-if (!$bildeinfo) {
-    visBildefeil("Filen er ikke et gyldig bilde.");
+$imageInfo = @getimagesize($file["tmp_name"]);
+if (!$imageInfo) {
+    showImageError("The file is not a valid image.");
 }
 
-$filtype = $bildeinfo["mime"];
-if ($filtype != "image/jpeg" && $filtype != "image/png" && $filtype != "image/webp") {
-    visBildefeil("Velg et gyldig JPG-, PNG- eller WebP-bilde.");
+$fileType = $imageInfo["mime"];
+if ($fileType != "image/jpeg" && $fileType != "image/png" && $fileType != "image/webp") {
+    showImageError("Choose a valid JPG, PNG or WebP image.");
 }
 
 require_once "../includes/dbconn.php";
 mysqli_report(MYSQLI_REPORT_OFF);
 
-$bildedata = file_get_contents($fil["tmp_name"]);
-if ($bildedata === false) {
-    visBildefeil("Kunne ikke lese bildet. Prøv igjen.");
+$imageData = file_get_contents($file["tmp_name"]);
+if ($imageData === false) {
+    showImageError("Could not read the image. Try again.");
 }
 
-$bruker_id = $_SESSION["user"]->id;
+$userId = $_SESSION["user"]->id;
 $sql = "UPDATE user SET profile_image_data = ?, profile_image_type = ? WHERE ID = ?";
-$sporring = mysqli_prepare($conn, $sql);
-if (!$sporring) {
-    visBildefeil("Kunne ikke oppdatere profilbildet. Prøv igjen.");
+$statement = mysqli_prepare($conn, $sql);
+if (!$statement) {
+    showImageError("Could not update your profile picture. Try again.");
 }
 
-mysqli_stmt_bind_param($sporring, "ssi", $bildedata, $filtype, $bruker_id);
-if (!mysqli_stmt_execute($sporring)) {
-    visBildefeil("Kunne ikke oppdatere profilbildet. Prøv igjen.");
+mysqli_stmt_bind_param($statement, "ssi", $imageData, $fileType, $userId);
+if (!mysqli_stmt_execute($statement)) {
+    showImageError("Could not update your profile picture. Try again.");
 }
-mysqli_stmt_close($sporring);
+mysqli_stmt_close($statement);
 
 $_SESSION["user"]->profile_image = true;
-$_SESSION["profile_message"] = "Profilbildet er oppdatert.";
+$_SESSION["profile_message"] = "Your profile picture has been updated.";
 header("Location: index.php");
 exit();
