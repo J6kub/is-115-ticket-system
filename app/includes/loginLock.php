@@ -54,24 +54,28 @@ function LoginLock($userType = "none") {
 }
 // Only UserId's in the array have access to the page
 function UserLock($GoodIds, $AllowEmployees=false, $AllowAdmins=false) {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
     if (!is_array($GoodIds)) {
         $GoodIds = [$GoodIds];
     }
     $employee = false;
     $admin = false;
-    if ($_SESSION["user"]->id == 3) {
+    if ($_SESSION["user"]->role == 3) {
         $employee = true;
-    } else if ($_SESSION["user"]->id == 2) {
+    } else if ($_SESSION["user"]->role == 2) {
         $admin = true;
         $employee = true;
     }
-
     if ($AllowEmployees == true && $employee) {
 
     } else if ($AllowAdmins == true && $admin) {
         
     } else if (!in_array($_SESSION["user"]->id, $GoodIds)) {
         echo "No access";
+        //echo "<script>location.href='../main-page/'</script>";
+
         exit;
     }
 }

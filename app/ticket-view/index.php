@@ -2,6 +2,40 @@
 require "../includes/loginLock.php";
 LoginLock();
 ?>
+<?php 
+        require "../includes/dbconn.php";
+
+
+        $result = $conn->query("SELECT * FROM case_overview where id=" . $_GET["id"]);
+
+        $case = $result->fetch_assoc();
+        if (!$case) {
+            header("Location: ../main-page");
+            exit();
+        }
+        //print_r($case);
+        $caseMessages = array();
+        $result = $conn->query("SELECT * FROM case_message_overview where case_id=" . $_GET["id"]);
+        while ($casemsg = $result->fetch_assoc()) {
+            //echo "<br>";
+            //print_r($casemsg);
+            array_push($caseMessages,$casemsg);
+        }
+        $caseMsgAttachments = array();
+        UserLock($case["user_id"], $AllowEmployees=true, $AllowAdmins=true);
+        $result = $conn->query("SELECT message_id,hash_id,filename,file_size FROM case_message_overview_attachments where case_id=" . $_GET["id"]);
+        while ($casemsg = $result->fetch_assoc()) {
+            //echo "<br>";
+            //print_r($casemsg);
+            array_push($caseMsgAttachments,$casemsg);
+        }
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        $uid = $_SESSION["user"]->id;
+        $tid = $_GET["id"];
+        setcookie("lastTicket-" . $uid, $tid, time()+(3600 * 48), "/"); // TACTICAL COOKIE SETTING UP LAST VIEWED TICKET
+    ?>
 <!DOCTYPE html>
 <html lang="no">
 
@@ -18,31 +52,7 @@ LoginLock();
 
     <?php require "../includes/nav.php"; ?>
 
-    <?php 
-        require "../includes/dbconn.php";
-
-
-        $result = $conn->query("SELECT * FROM case_overview where id=" . $_GET["id"]);
-
-        $case = $result->fetch_assoc();
-        //print_r($case);
-        $caseMessages = array();
-        $result = $conn->query("SELECT * FROM case_message_overview where case_id=" . $_GET["id"]);
-        while ($casemsg = $result->fetch_assoc()) {
-            //echo "<br>";
-            //print_r($casemsg);
-            array_push($caseMessages,$casemsg);
-        }
-        $caseMsgAttachments = array();
-        
-        $result = $conn->query("SELECT message_id,hash_id,filename,file_size FROM case_message_overview_attachments where case_id=" . $_GET["id"]);
-        while ($casemsg = $result->fetch_assoc()) {
-            //echo "<br>";
-            //print_r($casemsg);
-            array_push($caseMsgAttachments,$casemsg);
-        }
-        
-    ?>
+    
 
     <main class="ticket-view">
 

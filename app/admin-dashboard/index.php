@@ -12,7 +12,43 @@ LoginLock(["admin","employee"]);
     </head>
 
     <?php require "../includes/header.php"; ?>
+    <?php 
+    // last ticket section
+    $lastTicketSection = "";
+    if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+    $uid = $_SESSION["user"]->id;
+        
+    if (isset($_COOKIE["lastTicket-" . $uid])) {
+        // grab case
+        require "../includes/dbconn.php";
+        $result = $conn->query("SELECT * FROM case_overview where id=" . $_COOKIE["lastTicket-" . $uid]);
 
+        $case = $result->fetch_assoc();
+
+        $lastTicketSection = '<section class="dashboard-section">
+                <h2>Go to your last case:</h2>
+                <table class="ticket-table">
+                <tr style="background-color:#f3f3f3">
+                    
+                    <td>Ticket id</td>
+                    <td>Ticket Header</td>
+                    <td>Created By</td>
+                    <td>Last Update</td>
+                    <td>Status</td>
+                </tr>
+                <tr onclick="location.href=`../ticket-view/index.php?id=' . $_COOKIE["lastTicket-" . $uid] . '`";>
+                    <td>' . $case["id"] . '</td>
+                    <td>' . $case["case_name"] . '</td>
+                    <td>' . $case["FullName"] . '</td>
+                    <td>' . $case["updated_at"] . '</td>
+                    <td>' . $case["Status"] . '</td>
+                </tr>
+                </table>
+            </section>';
+    }
+    ?>
     <body>
         <?php require "../includes/nav.php"; ?>
 
@@ -24,7 +60,7 @@ LoginLock(["admin","employee"]);
                 <p>Welcome back, Joe Momorini </p>
                 <p>There are <strong>55</strong> tickets waiting for your response</p>
             </section>
-
+            <?php echo $lastTicketSection; ?>
             <!-- Section 2 -->
             <section class="dashboard-section">
                 <h2 id="ticketto-touretto">
@@ -60,7 +96,7 @@ LoginLock(["admin","employee"]);
 
             <!-- Section 3 -->
             <section class="dashboard-section">
-                <h2>4s</h2>
+                <h2>Just an section for later</h2>
                 <p>Tekst bare litt lenger nede</p>
             </section>
 
