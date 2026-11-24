@@ -1,12 +1,33 @@
+
 main {
-    max-width: 700px;
-    display: block;
+    display: grid;
+    grid-template-columns: minmax(0, 700px) 300px;
+    gap: 32px;
+    justify-content: center;
+    align-items: start;
+    padding: 24px;
+}
+
+.profile-container {
+    width: 100%;
+    min-width: 0;
 }
 
 .profile-container h1 {
     margin: 0 0 24px;
     color: var(--pink-dark);
     text-align: center;
+}
+
+aside.profile-sidebar {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    margin-top: 32px;
+    padding: 24px;
+    background: var(--pink-light);
+    border: 1px solid var(--border);
+    border-radius: 12px;
 }
 
 .profile-picture {
@@ -87,17 +108,12 @@ main {
     color: #a32338;
 }
 
-.profile-container button:focus-visible {
+.profile-container button:focus-visible,
+.profile-sidebar button:focus-visible {
     outline: 2px solid var(--pink-dark);
     outline-offset: 3px;
 }
 
-@media (max-width: 700px) {
-    .profile-picture {
-        padding: 20px 12px;
-    }
 
-    .profile-actions button {
-        width: 100%;
-    }
-}
+
+

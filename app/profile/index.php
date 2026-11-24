@@ -1,6 +1,10 @@
 <?php   
 require_once "../includes/classes/user.php";
 session_start();
+
+require "../includes/loginLock.php";
+LoginLock();
+
 //sjekker om brukeren er logget inn, hvis ikke blir brukeren sendt til login siden.
 if (!isset($_SESSION["user"])) {
     header("Location: ../login-page/index.php");
@@ -208,14 +212,19 @@ if ($user->role == 1) {
             </div>
 
             <?php if (!$editing): ?>
-                <form action="index.php" method="get" class="profile-actions">
+                
+                <form action="index.php" method="get" class="profile-actions" style="display:inline-block">
                     <button type="submit" name="edit" value="1">Edit profile</button>
                 </form>
+                <a href="./password.php"><button name="meow" value="67">Change Password</button></a>
             <?php endif; ?>
 
         </section>
+        
+        
+    </aside>
     </main>
-
+    
     <?php include "../includes/footer.php"; ?>
 </body>
 </html>

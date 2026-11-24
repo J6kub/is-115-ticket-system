@@ -5,7 +5,7 @@ LoginLock("user");
 require_once "../includes/classes/user.php";
 
 require_once "../includes/dbconn.php";
-session_start();
+
 // Get the logged-in user ID.
 $user_id = $_SESSION["user"]->id;
 
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 ?>
 
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 
