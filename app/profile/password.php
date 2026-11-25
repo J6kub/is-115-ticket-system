@@ -20,12 +20,20 @@ LoginLock();
     // Boksen under input som viser brukeren hva har skjedd, suksess feil osv
     $WHATTOSAYBACKTOUSER = "";
     require "../includes/dbconn.php";
+    function validatePassword($password) {
+        return (
+            strlen($password) >= 8 &&
+            preg_match('/[A-Z]/', $password) &&
+            preg_match('/[!@#$%^&*()_\-+=\[\]{};:,.?\/\\|]/', $password)
+        );
+    }
 
     function return_box($content, $color = "#842029") {
         return '<div class="return-box" style="background-color:' . $color . '">' . $content . '</div>';
     }
     // sql for update pwd
     function updatePwd($user_id, $old_pwd_hash, $new_pwd_hash, $conn) {
+        
         $sql = "UPDATE user set password_hash = '" . $new_pwd_hash . "' WHERE password_hash = '" . $old_pwd_hash . "' AND ID = '" . $user_id . "'";
         if ($conn->query($sql) === TRUE) {
             return True;
@@ -54,6 +62,8 @@ LoginLock();
         if ($res && $res->fetch_assoc()) { // Old Password is right !! Go to checks
             if ($newPwdHash == $oldPwdHash) { // Same password error, no Update!!! Throw fail
                 $WHATTOSAYBACKTOUSER = return_box("<strong>Error! </strong> Your new password can't be the same as the old one! ","red");
+            } else if (validatePassword($newPwd) === FALSE) {
+                $WHATTOSAYBACKTOUSER = return_box("<strong>Password requirements:</strong> At least 8 characters, at least one uppercase letter, and at least one special character (&%/*). ");
             } else if (($newPwdConfHash === $newPwdHash) && ($newPwdConf === $newPwd)) { // Everything good, update password
             if (updatePwd(
                     $user_info["id"], 

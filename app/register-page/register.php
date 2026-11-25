@@ -17,7 +17,7 @@ $sql = "INSERT INTO user
         )";
 
 if (mysqli_query($conn, $sql)) {
-    echo "New record created successfully";
+    echo "Nice, you registered yourself!";
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
