@@ -26,6 +26,7 @@
                 Support Goose is a simple and friendly ticket system designed
                 to make submitting and managing support requests easy.
             </p>
+            
         </section>
 
         <aside>

@@ -16,11 +16,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $case_name = strip_tags($_POST["title"]);
     $case_desc = strip_tags($_POST["description"]);
 
-
     $sql = "INSERT INTO cases (user_id, priority_id, case_desc, case_name, status_id)
-            VALUES ('$user_id', 1, '$case_desc', '$case_name', 1)";
+            VALUES (?, 1, ?, ?, 1)";
 
-    mysqli_query($conn, $sql);
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "iss", $user_id, $case_desc, $case_name);
+
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
 }
 ?>
 

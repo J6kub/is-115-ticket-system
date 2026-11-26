@@ -7,22 +7,23 @@ $pwdHash = hash("sha256", $_POST["password"]);
 require "../includes/dbconn.php";
 $firstname = trim(strip_tags($_POST["firstname"]));
 $lastname = trim(strip_tags($_POST["lastname"]));
+$role = $_POST["role"];
+$email = $_POST["email"];
 
 $sql = "INSERT INTO user
         (first_name, last_name, user_type_id, email, password_hash)
-        VALUES (
-            '$firstname',
-            '$lastname',
-            '{$_POST["role"]}',
-            '{$_POST["email"]}',
-            '$pwdHash'
-        )";
-        
-if (mysqli_query($conn, $sql)) {
+        VALUES (?, ?, ?, ?, ?)";
+
+$stmt = mysqli_prepare($conn, $sql);
+mysqli_stmt_bind_param($stmt, "ssiss", $firstname, $lastname, $role, $email, $pwdHash);
+
+if (mysqli_stmt_execute($stmt)) {
     echo "Nice, you registered yourself!";
 } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    echo "Error: " . mysqli_stmt_error($stmt);
 }
+
+mysqli_stmt_close($stmt);
 
 ?>
 <h1 id='h1'></h1>

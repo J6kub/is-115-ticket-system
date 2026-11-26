@@ -1,1 +1,1 @@
-<footer><span>Feets</span></footer>
+<footer><span>is115 - 2026 - Support Goose™ </span></footer>

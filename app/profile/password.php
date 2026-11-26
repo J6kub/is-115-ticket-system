@@ -33,9 +33,13 @@ LoginLock();
     }
     // sql for update pwd
     function updatePwd($user_id, $old_pwd_hash, $new_pwd_hash, $conn) {
-        
-        $sql = "UPDATE user set password_hash = '" . $new_pwd_hash . "' WHERE password_hash = '" . $old_pwd_hash . "' AND ID = '" . $user_id . "'";
-        if ($conn->query($sql) === TRUE) {
+
+        $sql = "UPDATE user SET password_hash = ? WHERE password_hash = ? AND ID = ?";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssi", $new_pwd_hash, $old_pwd_hash, $user_id);
+
+        if ($stmt->execute()) {
             return True;
         } else {
             return False;
