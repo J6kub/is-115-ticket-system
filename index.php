@@ -1,3 +1,3 @@
 <html>
-<?php require "app/includes/nav.php"; ?>
+<?php header("Location: ./app/main-page/") ?>
 </html>

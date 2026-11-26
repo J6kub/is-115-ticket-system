@@ -5,17 +5,19 @@ $pwdHash = hash("sha256", $_POST["password"]);
 
 
 require "../includes/dbconn.php";
+$firstname = trim(strip_tags($_POST["firstname"]));
+$lastname = trim(strip_tags($_POST["lastname"]));
 
 $sql = "INSERT INTO user
         (first_name, last_name, user_type_id, email, password_hash)
         VALUES (
-            '{$_POST["firstname"]}',
-            '{$_POST["lastname"]}',
+            '$firstname',
+            '$lastname',
             '{$_POST["role"]}',
             '{$_POST["email"]}',
             '$pwdHash'
         )";
-
+        
 if (mysqli_query($conn, $sql)) {
     echo "Nice, you registered yourself!";
 } else {

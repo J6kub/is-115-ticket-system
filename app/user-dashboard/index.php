@@ -13,6 +13,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $case_name = $_POST["title"];
     $case_desc = $_POST["description"];
 
+    $case_name = strip_tags($_POST["title"]);
+    $case_desc = strip_tags($_POST["description"]);
+
+
     $sql = "INSERT INTO cases (user_id, priority_id, case_desc, case_name, status_id)
             VALUES ('$user_id', 1, '$case_desc', '$case_name', 1)";
 
