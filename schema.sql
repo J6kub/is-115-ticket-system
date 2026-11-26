@@ -209,7 +209,6 @@ CREATE TABLE `statuses` (
 --
 
 INSERT INTO `statuses` (`id`, `name`) VALUES
-(12, ''),
 (6, 'Big Problem'),
 (3, 'Closed'),
 (2, 'In progress'),
