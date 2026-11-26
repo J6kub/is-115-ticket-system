@@ -14,7 +14,8 @@ $stmt = $conn->prepare("
         filename,
         mime_type,
         file_size,
-        file_data
+        file_data,
+        case_id
     FROM case_message_overview_attachments
     WHERE hash_id = ?
     LIMIT 1
@@ -25,6 +26,14 @@ $stmt->execute();
 
 $result = $stmt->get_result();
 $data = $result->fetch_assoc();
+
+$sql = "SELECT user_id FROM cases WHERE id = " . $data["case_id"];
+$res = $conn->query($sql);
+$data2 = $res->fetch_assoc();
+require "../includes/loginLock.php";
+LoginLock();
+UserLock($data2["user_id"], $AllowEmployees=true, $AllowAdmins=true);
+
 
 if (!$data) {
     http_response_code(404);

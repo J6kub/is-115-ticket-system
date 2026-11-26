@@ -3,13 +3,19 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Lis 07, 2026 at 05:19 PM
+-- Generation Time: Lis 26, 2026 at 12:37 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `ticketsystem`
@@ -179,6 +185,14 @@ CREATE TABLE `priorities` (
   `name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `priorities`
+--
+
+INSERT INTO `priorities` (`id`, `name`) VALUES
+(1, 'no'),
+(0, 'Yes');
+
 -- --------------------------------------------------------
 
 --
@@ -332,6 +346,7 @@ ALTER TABLE `statuses`
 ALTER TABLE `user`
   ADD PRIMARY KEY (`ID`),
   ADD UNIQUE KEY `unique_user_email` (`email`),
+  ADD UNIQUE KEY `email` (`email`),
   ADD KEY `fk_user_user_type` (`user_type_id`);
 
 --
@@ -432,3 +447,7 @@ ALTER TABLE `message_attachments`
 ALTER TABLE `user`
   ADD CONSTRAINT `fk_user_user_type` FOREIGN KEY (`user_type_id`) REFERENCES `user_types` (`id`);
 COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

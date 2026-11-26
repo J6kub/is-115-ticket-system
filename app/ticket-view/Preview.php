@@ -10,7 +10,7 @@ if (!$hash_id) {
 }
 
 $stmt = $conn->prepare("
-    SELECT mime_type, file_data
+    SELECT mime_type, file_data, case_id
     FROM case_message_overview_attachments
     WHERE hash_id = ?
     LIMIT 1
@@ -21,6 +21,8 @@ $stmt->execute();
 
 $result = $stmt->get_result();
 $data = $result->fetch_assoc();
+
+
 
 if (!$data) {
     http_response_code(404);

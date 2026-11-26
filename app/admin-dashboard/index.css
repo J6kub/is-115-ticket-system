@@ -58,3 +58,16 @@ table tbody tr {
     color: #111;
     font-weight: 600;
 }
+.Big {
+    background-color:red;
+    color:white;
+}
+.quarantine {
+    background-color:yellow;
+    color:black;
+}
+
+.progress {
+    background-color:orange;
+    color:white;
+}
